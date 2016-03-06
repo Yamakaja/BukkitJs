@@ -1,0 +1,10 @@
+name: BukkitJs
+main: me.yamakaja.bukkitjs.BukkitJs
+version: 0.0.1
+author: Yamakaja
+commands:
+  script:
+    usage:
+      /<command>
+    description:
+      BukkitJs main command. '/script' for more information
