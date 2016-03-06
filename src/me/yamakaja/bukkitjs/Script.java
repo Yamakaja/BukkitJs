@@ -10,7 +10,7 @@ public class Script {
 	public boolean enabled = true;
 	
 	public long frequency = 20;
-	public boolean async = true;
+	public boolean async = false;
 	
 	public Script(String name, String code, EventType event){
 		this.name = name;

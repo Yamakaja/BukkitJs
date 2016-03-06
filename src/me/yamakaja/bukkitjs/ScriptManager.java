@@ -26,14 +26,14 @@ public class ScriptManager {
 		ArrayList<Script> result = new ArrayList<>();
 		File f = new File(plugin.getDataFolder().getAbsolutePath() + ScriptManager.baseFolder);
 		if(!f.exists()){
-			f.mkdir();
+			f.mkdirs();
 		}
 		String code;
 		EventType event;
 		boolean enabled = true;
 		String name;
-		long frequency = 20;
-		boolean async = true;
+		long frequency = 72000;
+		boolean async = false;
 		for (File listFile : f.listFiles()) {
 			code = "";
 			enabled = true;

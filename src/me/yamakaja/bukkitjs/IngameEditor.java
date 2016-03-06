@@ -30,15 +30,21 @@ public class IngameEditor {
 		this.frequency = frequency;
 		this.async = async;
 		this.enabled = enabled;
+		this.mode = EditMode.OVERWRITE;
 		sendEditScreen();
 	}
 
 	public IngameEditor(Player owner, String name, String code, EventType e, boolean enabled) {
+		if(e.isTimer()){
+			this.frequency = ScriptCommand.MINUTE_IN_TICKS;
+			this.async = false;
+		}
 		this.owner = owner;
 		this.code = getArrayFromString(code);
 		this.et = e;
 		this.name = name;
 		this.enabled = enabled;
+		this.mode = EditMode.OVERWRITE;
 		sendEditScreen();
 	}
 

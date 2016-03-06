@@ -18,7 +18,7 @@ public class BukkitJs extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
+		
 		long starttime = System.currentTimeMillis();
 		this.logger = this.getLogger();
 		if (debug) {

@@ -57,7 +57,7 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 			sender.sendMessage("Only players can use this command!");
 			return true;
 		} else if (!sender.hasPermission("bukkitjs.use")) {
-			sender.sendMessage( ChatColor.DARK_RED + "You don't have permission to use this command!");
+			sender.sendMessage(ChatColor.DARK_RED + "You don't have permission to use this command!");
 			return true;
 		}
 		Player p = (Player) sender;
@@ -82,21 +82,25 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 						if (args.length >= 4) {
 							if (args.length == 5) {
 								editors.put(p.getName(), new IngameEditor(p, args[2], "", EventType.valueOf(args[1]),
-										Integer.parseInt(args[3]), Boolean.parseBoolean(args[4]),true));
+										Integer.parseInt(args[3]), Boolean.parseBoolean(args[4]), true));
 							} else
-								editors.put(p.getName(), new IngameEditor(p, args[2], "", EventType.valueOf(args[1]),true));
+								editors.put(p.getName(),
+										new IngameEditor(p, args[2], "", EventType.valueOf(args[1]), true));
 						} else
-							editors.put(p.getName(), new IngameEditor(p, args[2], "", EventType.valueOf(args[1]),true));
-						p.sendMessage("" + ChatColor.YELLOW + "You are now editing " + ChatColor.GOLD + "" + args[2] + "" + ChatColor.YELLOW + ":");
-						p.sendMessage("" + ChatColor.YELLOW + "Type " + ChatColor.DARK_RED + "/script save " + ChatColor.YELLOW + "to exit and save.");
+							editors.put(p.getName(),
+									new IngameEditor(p, args[2], "", EventType.valueOf(args[1]), true));
+						p.sendMessage("" + ChatColor.YELLOW + "You are now editing " + ChatColor.GOLD + "" + args[2]
+								+ "" + ChatColor.YELLOW + ":");
+						p.sendMessage("" + ChatColor.YELLOW + "Type " + ChatColor.DARK_RED + "/script save "
+								+ ChatColor.YELLOW + "to exit and save.");
 						editmode.put(p.getName(), (byte) 1);
 					} catch (NumberFormatException e) {
-						p.sendMessage( ChatColor.DARK_RED + "Incorrect number format!");
+						p.sendMessage(ChatColor.DARK_RED + "Incorrect number format!");
 					} catch (IllegalArgumentException e) {
-						p.sendMessage( ChatColor.DARK_RED + "Invalid trigger!");
+						p.sendMessage(ChatColor.DARK_RED + "Invalid trigger!");
 					}
 				} else {
-					p.sendMessage( ChatColor.DARK_RED + "This script allready exists! Choose a different name!");
+					p.sendMessage(ChatColor.DARK_RED + "This script allready exists! Choose a different name!");
 				}
 			}
 		} else if (args[0].equalsIgnoreCase("adjust")) {
@@ -126,13 +130,15 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 			if (args.length == 2) {
 				Script s = plugin.scriptManager.getScriptByName(args[1]);
 				if (s != null) {
-					p.sendMessage("" + ChatColor.YELLOW + "You are now editing " + ChatColor.GOLD + "" + s.getName() + "" + ChatColor.YELLOW + ":");
-					p.sendMessage("" + ChatColor.YELLOW + "Type " + ChatColor.DARK_RED + "/script save " + ChatColor.YELLOW + "to exit and save.");
+					p.sendMessage("" + ChatColor.YELLOW + "You are now editing " + ChatColor.GOLD + "" + s.getName()
+							+ "" + ChatColor.YELLOW + ":");
+					p.sendMessage("" + ChatColor.YELLOW + "Type " + ChatColor.DARK_RED + "/script save "
+							+ ChatColor.YELLOW + "to exit and save.");
 					editors.put(p.getName(), new IngameEditor(p, s));
 					editmode.put(p.getName(), (byte) 1);
 				} else {
-					p.sendMessage( ChatColor.DARK_RED +  args[1] + " does not exist! To create it use /script create <trigger> "
-							+ args[1] + ".");
+					p.sendMessage(ChatColor.DARK_RED + args[1]
+							+ " does not exist! To create it use /script create <trigger> " + args[1] + ".");
 				}
 			}
 		} else if (args[0].equalsIgnoreCase("execute")) {
@@ -142,7 +148,8 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 					p.sendMessage(ChatColor.GOLD + "Executing " + s.getName() + ChatColor.GOLD + "!");
 					plugin.engineManager.execute(args[1], p);
 				} else {
-					p.sendMessage(ChatColor.GOLD + "" + args[1] + ChatColor.DARK_RED + " does not exist or isn't a DUMMY script!");
+					p.sendMessage(ChatColor.GOLD + "" + args[1] + ChatColor.DARK_RED
+							+ " does not exist or isn't a DUMMY script!");
 				}
 			}
 		} else if (args[0].equalsIgnoreCase("save")) {
@@ -185,8 +192,11 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 		} else if (args[0].equalsIgnoreCase("ccs")) {
 			new FancyMessage("This is a formatting test: ").color(ChatColor.AQUA).then("X").color(ChatColor.DARK_RED)
 					.style(ChatColor.BOLD).suggest("/stop").send(p);
-			p.sendMessage(ChatColor.DARK_BLUE + "&1 " + ChatColor.DARK_GREEN + "&2 " + ChatColor.DARK_AQUA + "&3 " + ChatColor.DARK_RED + "&4 " + ChatColor.DARK_PURPLE + "&5 " + ChatColor.GOLD + "&6 " + ChatColor.GOLD + "&7 " + ChatColor.DARK_GRAY + "&8 " + ChatColor.BLUE + "&9");
-			p.sendMessage("" + ChatColor.GREEN + "&a " + ChatColor.AQUA + "&b " + ChatColor.RED + "&c " + ChatColor.LIGHT_PURPLE + "&d " + ChatColor.YELLOW + "&e " + ChatColor.WHITE + "&f");
+			p.sendMessage(ChatColor.DARK_BLUE + "&1 " + ChatColor.DARK_GREEN + "&2 " + ChatColor.DARK_AQUA + "&3 "
+					+ ChatColor.DARK_RED + "&4 " + ChatColor.DARK_PURPLE + "&5 " + ChatColor.GOLD + "&6 "
+					+ ChatColor.GOLD + "&7 " + ChatColor.DARK_GRAY + "&8 " + ChatColor.BLUE + "&9");
+			p.sendMessage("" + ChatColor.GREEN + "&a " + ChatColor.AQUA + "&b " + ChatColor.RED + "&c "
+					+ ChatColor.LIGHT_PURPLE + "&d " + ChatColor.YELLOW + "&e " + ChatColor.WHITE + "&f");
 		} else if (args[0].equalsIgnoreCase("reload")) {
 			plugin.scriptManager.reloadScripts();
 			p.sendMessage(ChatColor.GREEN + "Sucessfully reloaded scripts!");
@@ -259,14 +269,16 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 				try {
 					clazz = Class.forName(args[1]);
 				} catch (ClassNotFoundException ex) {
-					p.sendMessage( ChatColor.DARK_RED + "Unkown Event!");
-					p.sendMessage("" + ChatColor.GREEN + "Tipp: " + ChatColor.AQUA + "You can use [Tab] to autocomplete.");
+					p.sendMessage(ChatColor.DARK_RED + "Unkown Event!");
+					p.sendMessage(
+							"" + ChatColor.GREEN + "Tipp: " + ChatColor.AQUA + "You can use [Tab] to autocomplete.");
 					return true;
 				}
 
 			}
 			p.sendMessage("" + ChatColor.YELLOW + "---------------------------------------------------");
-			p.sendMessage("" + ChatColor.YELLOW + "    " + ChatColor.RED + "Classviewer: " + ChatColor.GOLD + " " + args[1]);
+			p.sendMessage(
+					"" + ChatColor.YELLOW + "    " + ChatColor.RED + "Classviewer: " + ChatColor.GOLD + " " + args[1]);
 
 			FancyMessage modeSelect = new FancyMessage("------ ").color(ChatColor.YELLOW).then("Methods")
 					.color(ChatColor.DARK_GREEN);
@@ -274,10 +286,13 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 			switch (mode) {
 			case 0:
 				modeSelect.style(ChatColor.UNDERLINE).then(" ").then("Fields").color(ChatColor.BLUE)
-						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.BLUE + "Field " + ChatColor.GOLD + "view").command("/script eventinfo " + args[1] + " 0 1")
-						.then(" ").then("Constructor").color(ChatColor.DARK_AQUA)
-						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_AQUA + "Constructor " + ChatColor.GOLD + "view").command("/script eventinfo " + args[1] + " 0 2")
-						.then(" ------------------").color(ChatColor.YELLOW).send(p);
+						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.BLUE + "Field " + ChatColor.GOLD + "view")
+						.command("/script eventinfo " + args[1] + " 0 1").then(" ").then("Constructor")
+						.color(ChatColor.DARK_AQUA)
+						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_AQUA + "Constructor " + ChatColor.GOLD
+								+ "view")
+						.command("/script eventinfo " + args[1] + " 0 2").then(" ------------------")
+						.color(ChatColor.YELLOW).send(p);
 				p.sendMessage("" + ChatColor.YELLOW + "---------------------------------------------------");
 
 				Method[] m = clazz.getMethods();
@@ -301,9 +316,13 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 				}
 				break;
 			case 1:
-				modeSelect.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_GREEN + "Method " + ChatColor.GOLD + "view").command("/script eventinfo " + args[1] + " 0 0")
-						.then(" ").then("Fields").color(ChatColor.BLUE).style(ChatColor.UNDERLINE).then(" ")
-						.then("Constructor").color(ChatColor.DARK_AQUA).tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_AQUA + "Constructor " + ChatColor.GOLD + "view")
+				modeSelect
+						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_GREEN + "Method " + ChatColor.GOLD
+								+ "view")
+						.command("/script eventinfo " + args[1] + " 0 0").then(" ").then("Fields").color(ChatColor.BLUE)
+						.style(ChatColor.UNDERLINE).then(" ").then("Constructor").color(ChatColor.DARK_AQUA)
+						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_AQUA + "Constructor " + ChatColor.GOLD
+								+ "view")
 						.command("/script eventinfo " + args[1] + " 0 2").then(" ------------------")
 						.color(ChatColor.YELLOW).send(p);
 				p.sendMessage("" + ChatColor.YELLOW + "---------------------------------------------------");
@@ -318,8 +337,11 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 				}
 				break;
 			case 2:
-				modeSelect.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_GREEN + "Method " + ChatColor.GOLD + "view").command("/script eventinfo " + args[1] + " 0 0")
-						.then(" ").then("Fields").color(ChatColor.BLUE).tooltip(ChatColor.GOLD + "Switch to " + ChatColor.BLUE + "Field " + ChatColor.GOLD + "view")
+				modeSelect
+						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.DARK_GREEN + "Method " + ChatColor.GOLD
+								+ "view")
+						.command("/script eventinfo " + args[1] + " 0 0").then(" ").then("Fields").color(ChatColor.BLUE)
+						.tooltip(ChatColor.GOLD + "Switch to " + ChatColor.BLUE + "Field " + ChatColor.GOLD + "view")
 						.command("/script eventinfo " + args[1] + " 0 1").then(" ").then("Constructors")
 						.color(ChatColor.DARK_AQUA).style(ChatColor.UNDERLINE).then(" ------------------")
 						.color(ChatColor.YELLOW).send(p);
@@ -356,10 +378,10 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 				try {
 					if (args.length == 2)
 						p.playSound(p.getLocation(), Sound.valueOf(args[1]), 1, 1);
-					if (args.length == 3){
-						try{
+					if (args.length == 3) {
+						try {
 							p.playSound(p.getLocation(), Sound.valueOf(args[1]), 1, Float.parseFloat(args[2]));
-						}catch(NumberFormatException e){
+						} catch (NumberFormatException e) {
 							throw new IllegalArgumentException();
 						}
 					}
@@ -460,11 +482,14 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 	}
 
 	public void displayList(Player p, int page) {
-		p.sendMessage("" + ChatColor.YELLOW + "--------- " + ChatColor.WHITE + "Active Scripts " + ChatColor.YELLOW + "---------------------------");
+		p.sendMessage("" + ChatColor.YELLOW + "--------- " + ChatColor.WHITE + "Active Scripts " + ChatColor.YELLOW
+				+ "---------------------------");
 		p.sendMessage(ChatColor.GOLD + "Below is a list of all active scripts:");
 		ArrayList<Script> script = plugin.scriptManager.scripts;
 		for (int i : getIndexRangeOnPage(page, script.size())) {
-			// p.sendMessage("" + ChatColor.YELLOW + " - " + ChatColor.GOLD + "" + script.getName() + " " + ChatColor.RED + "@ " + ChatColor.BLUE + "" +
+			// p.sendMessage("" + ChatColor.YELLOW + " - " + ChatColor.GOLD + ""
+			// + script.getName() + " " + ChatColor.RED + "@ " + ChatColor.BLUE
+			// + "" +
 			// script.getEventType().name());
 			new FancyMessage(" - ").color(ChatColor.YELLOW).then(script.get(i).enabled ? "0--" : "--0")
 					.color(getSwitchColor(script.get(i))).tooltip(getSwitchTooltip(script.get(i)))
@@ -475,7 +500,8 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 					.then("EDIT").color(ChatColor.RED).command("/script edit " + script.get(i).getName())
 					.tooltip(ChatColor.GRAY + "Click here to edit " + ChatColor.GOLD + script.get(i).getName())
 					.then(" ").then(script.get(i).getEventType().isTimer() ? "ADJ" : "").color(ChatColor.GOLD)
-					.tooltip(ChatColor.GOLD + "Click here to adjust the frequency at which this", ChatColor.GOLD + "script gets fired.")
+					.tooltip(ChatColor.GOLD + "Click here to adjust the frequency at which this",
+							ChatColor.GOLD + "script gets fired.")
 					.command("/script adjust " + script.get(i).getName())
 					.then(script.get(i).getEventType().isTimer() ? " " : "").then("DEL").color(ChatColor.DARK_RED)
 					.suggest("/script delete " + script.get(i).getName())
@@ -489,43 +515,55 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 	}
 
 	public void displayHelp(Player p) {
-		p.sendMessage("" + ChatColor.YELLOW + "---------- " + ChatColor.WHITE + "Script Help " + ChatColor.YELLOW + "-----------------------------");
+		p.sendMessage("" + ChatColor.YELLOW + "---------- " + ChatColor.WHITE + "Script Help " + ChatColor.YELLOW
+				+ "-----------------------------");
 		p.sendMessage(ChatColor.GOLD + "Below is a list of all commands:");
 		new FancyMessage("/script help").color(ChatColor.GOLD).then(": Displays this help message.").send(p);
-		new FancyMessage("/script list").command("/script list").tooltip(ChatColor.GOLD + "Click to execute").color(ChatColor.GOLD)
-				.then(": Lists all active Scripts.").send(p);
+		new FancyMessage("/script list").command("/script list").tooltip(ChatColor.GOLD + "Click to execute")
+				.color(ChatColor.GOLD).then(": Lists all active Scripts.").send(p);
 		new FancyMessage("/script create ").color(ChatColor.GOLD).suggest("/script create ")
 				.tooltip(ChatColor.GOLD + "Click to prepair execution").then("<trigger>").color(ChatColor.GOLD)
 				.tooltip(ChatColor.GOLD + "The trigger tells the script when to launch.",
-						ChatColor.GOLD + "There are there types of triggers: " + ChatColor.RED + "Events" + ChatColor.GOLD + ", " + ChatColor.RED + "DUMMY" + ChatColor.GOLD + " and " + ChatColor.RED + "TIMER" + ChatColor.GOLD + ".",
-						ChatColor.GOLD + "The " + ChatColor.RED + "Event" + ChatColor.GOLD + "-triggers launch with their corresponding Event,",
+						ChatColor.GOLD + "There are there types of triggers: " + ChatColor.RED + "Events"
+								+ ChatColor.GOLD + ", " + ChatColor.RED + "DUMMY" + ChatColor.GOLD + " and "
+								+ ChatColor.RED + "TIMER" + ChatColor.GOLD + ".",
+						ChatColor.GOLD + "The " + ChatColor.RED + "Event" + ChatColor.GOLD
+								+ "-triggers launch with their corresponding Event,",
 						ChatColor.GOLD + "for example AsyncPlayerChatEvent launches when a player sends out a message.",
-						"" + ChatColor.RED + "DUMMY" + ChatColor.GOLD + " triggered scripts can be launched using a command:",
-						ChatColor.GOLD + "/script execute <Name (of a " + ChatColor.RED + "DUMMY" + ChatColor.GOLD + " script)>",
-						ChatColor.GOLD + "Note that " + ChatColor.RED + "DUMMY " + ChatColor.GOLD + "scripts can access the executing player",
+						"" + ChatColor.RED + "DUMMY" + ChatColor.GOLD
+								+ " triggered scripts can be launched using a command:",
+						ChatColor.GOLD + "/script execute <Name (of a " + ChatColor.RED + "DUMMY" + ChatColor.GOLD
+								+ " script)>",
+						ChatColor.GOLD + "Note that " + ChatColor.RED + "DUMMY " + ChatColor.GOLD
+								+ "scripts can access the executing player",
 						ChatColor.GOLD + "using the \"player\" variable.",
-						"" + ChatColor.RED + "TIMER" + ChatColor.GOLD + "-scripts trigger every n ticks (20 tick = 1 second) and require two",
+						"" + ChatColor.RED + "TIMER" + ChatColor.GOLD
+								+ "-scripts trigger every n ticks (20 tick = 1 second) and require two",
 						ChatColor.GOLD + "extra parameters:",
 						ChatColor.GOLD + "/script create TIMER <name> <frequency in ticks> <async: (true|false)>",
 						ChatColor.GOLD + "(Async means it wont wait for your world to tick and allways trigger every",
 						ChatColor.GOLD + "n/20 seconds where as non-async will wait and also slow down with your tps",
 						ChatColor.GOLD + "10 tps -> half speed)")
-				.then(" ").then("<name>").color(ChatColor.GOLD).tooltip(ChatColor.GOLD + "Just an ordinary old name ...")
+				.then(" ").then("<name>").color(ChatColor.GOLD)
+				.tooltip(ChatColor.GOLD + "Just an ordinary old name ...")
 				.then(": Main command used to create Scripts.").send(p);
 		new FancyMessage("/script edit ").color(ChatColor.GOLD).suggest("/script edit ")
 				.tooltip(ChatColor.GOLD + "Click to prepair execution").then("<name>").color(ChatColor.GOLD)
 				.tooltip(ChatColor.GOLD + "Your scripts name.", ChatColor.GOLD + "Protipp: Use [Tab] to auto complete!")
 				.then(": Used to edit scripts.").send(p);
-		new FancyMessage("/script execute ").suggest("/script execute ").tooltip(ChatColor.GOLD + "Click to prepair execution")
-				.color(ChatColor.GOLD).then("<name>").tooltip(ChatColor.GOLD + "The name of a DUMMY script.", ChatColor.GOLD + "Autocomplete FTW ;)")
+		new FancyMessage("/script execute ").suggest("/script execute ")
+				.tooltip(ChatColor.GOLD + "Click to prepair execution").color(ChatColor.GOLD).then("<name>")
+				.tooltip(ChatColor.GOLD + "The name of a DUMMY script.", ChatColor.GOLD + "Autocomplete FTW ;)")
 				.color(ChatColor.GOLD).then(": Allows you to execute DUMMY scripts.").send(p);
 		new FancyMessage("/script eventinfo ").color(ChatColor.GOLD).suggest("/script eventinfo ")
 				.tooltip(ChatColor.GOLD + "Click to prepair execution").then("<event>").color(ChatColor.GOLD)
-				.tooltip(ChatColor.GOLD + "An event.", ChatColor.GOLD + "Remember: Using autocomplete ([Tab]) is allways a good idea :).")
+				.tooltip(ChatColor.GOLD + "An event.",
+						ChatColor.GOLD + "Remember: Using autocomplete ([Tab]) is allways a good idea :).")
 				.then(": Provides more information on the specified event.").send(p);
 		new FancyMessage("/script version").tooltip(ChatColor.GOLD + "Click to execute").command("/script version")
 				.color(ChatColor.GOLD).then(": General plugin information.").send(p);
-		// p.sendMessage("" + ChatColor.YELLOW + "---------------------------------------------------");
+		// p.sendMessage("" + ChatColor.YELLOW +
+		// "---------------------------------------------------");
 	}
 
 	public FancyMessage getPageSelector(int page, String commandLeft, String commandRight) {
@@ -537,11 +575,13 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 					.tooltip(ChatColor.GRAY + "Go to page " + ChatColor.GOLD + (page)).command(commandLeft);
 
 		pageselector.then(" " + (page + 1)).color(ChatColor.AQUA)
-				.tooltip(ChatColor.GRAY + "You are currently on page " + ChatColor.GOLD + "" + (page + 1) + ChatColor.GOLD + " of " + ChatColor.GOLD + "" + pagesVar).then("/")
-				.color(ChatColor.GRAY)
-				.tooltip(ChatColor.GRAY + "You are currently on page " + ChatColor.GOLD + "" + (page + 1) + ChatColor.GOLD + " of " + ChatColor.GOLD + "" + pagesVar)
-				.then(pagesVar + " ").color(ChatColor.AQUA)
-				.tooltip(ChatColor.GRAY + "You are currently on page " + ChatColor.GOLD + "" + (page + 1) + ChatColor.GOLD + " of " + ChatColor.GOLD + "" + pagesVar);
+				.tooltip(ChatColor.GRAY + "You are currently on page " + ChatColor.GOLD + "" + (page + 1)
+						+ ChatColor.GOLD + " of " + ChatColor.GOLD + "" + pagesVar)
+				.then("/").color(ChatColor.GRAY)
+				.tooltip(ChatColor.GRAY + "You are currently on page " + ChatColor.GOLD + "" + (page + 1)
+						+ ChatColor.GOLD + " of " + ChatColor.GOLD + "" + pagesVar)
+				.then(pagesVar + " ").color(ChatColor.AQUA).tooltip(ChatColor.GRAY + "You are currently on page "
+						+ ChatColor.GOLD + "" + (page + 1) + ChatColor.GOLD + " of " + ChatColor.GOLD + "" + pagesVar);
 
 		if (lastPageFlag)
 			pageselector.then("==>").color(ChatColor.GRAY);
@@ -553,7 +593,8 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 	}
 
 	public void showTimeSelector(Player p, String script, long current) {
-		p.sendMessage("" + ChatColor.YELLOW + "-------- " + ChatColor.WHITE + "Adjust frequency for " + ChatColor.GOLD + " " + script + "" + ChatColor.YELLOW + " ------");
+		p.sendMessage("" + ChatColor.YELLOW + "-------- " + ChatColor.WHITE + "Adjust frequency for " + ChatColor.GOLD
+				+ " " + script + "" + ChatColor.YELLOW + " ------");
 		p.sendMessage("");
 		p.sendMessage("");
 		int days = getFlooredValue(current, DAY_IN_TICKS), hours = getFlooredValue(current, HOUR_IN_TICKS),
@@ -562,43 +603,54 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 		new FancyMessage("            ").then("\u25b2").color(ChatColor.GOLD)
 				.tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Days" + ChatColor.GOLD + " by 1")
 				.command("/script adjust " + script + " " + (current + DAY_IN_TICKS)).then(" ").then("\u25b2")
-				.color(ChatColor.GOLD).tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Hours" + ChatColor.GOLD + " by 1")
+				.color(ChatColor.GOLD)
+				.tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Hours" + ChatColor.GOLD + " by 1")
 				.command("/script adjust " + script + " " + (current + HOUR_IN_TICKS)).then(" ").then("\u25b2")
-				.color(ChatColor.GOLD).tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Minutes" + ChatColor.GOLD + " by 1")
+				.color(ChatColor.GOLD)
+				.tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Minutes" + ChatColor.GOLD + " by 1")
 				.command("/script adjust " + script + " " + (current + MINUTE_IN_TICKS)).then(" ").then("\u25b2")
-				.color(ChatColor.GOLD).tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Seconds" + ChatColor.GOLD + " by 1")
+				.color(ChatColor.GOLD)
+				.tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Seconds" + ChatColor.GOLD + " by 1")
 				.command("/script adjust " + script + " " + (current + SECOND_IN_TICKS)).then(" ").then("\u25b2")
-				.color(ChatColor.GOLD).tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Ticks" + ChatColor.GOLD + " by 1")
+				.color(ChatColor.GOLD)
+				.tooltip(ChatColor.GOLD + "Click to increase " + ChatColor.GOLD + "Ticks" + ChatColor.GOLD + " by 1")
 				.command("/script adjust " + script + " " + (current + 1)).send(p);
 		new FancyMessage("Frequency: ").color(ChatColor.YELLOW).then(String.format("%02d", days)).color(ChatColor.AQUA)
-				.tooltip(ChatColor.GOLD + "Days").then(":").then(String.format("%02d", hours)).color(ChatColor.AQUA).tooltip(ChatColor.GOLD + "Hours")
-				.then(":").then(String.format("%02d", minutes)).color(ChatColor.AQUA).tooltip(ChatColor.GOLD + "Minutes").then(":")
-				.then(String.format("%02d", seconds)).color(ChatColor.AQUA).tooltip(ChatColor.GOLD + "Seconds").then(":")
-				.then(String.format("%02d", ticks)).color(ChatColor.AQUA).tooltip(ChatColor.GOLD + "Ticks").then("  ").then("SUBMIT")
+				.tooltip(ChatColor.GOLD + "Days").then(":").then(String.format("%02d", hours)).color(ChatColor.AQUA)
+				.tooltip(ChatColor.GOLD + "Hours").then(":").then(String.format("%02d", minutes)).color(ChatColor.AQUA)
+				.tooltip(ChatColor.GOLD + "Minutes").then(":").then(String.format("%02d", seconds))
+				.color(ChatColor.AQUA).tooltip(ChatColor.GOLD + "Seconds").then(":").then(String.format("%02d", ticks))
+				.color(ChatColor.AQUA).tooltip(ChatColor.GOLD + "Ticks").then("  ").then("SUBMIT")
 				.color(current >= 5 ? ChatColor.GREEN : ChatColor.RED).style(ChatColor.BOLD)
-				.tooltip(current >= 5 ? ChatColor.GOLD + "Click to submit changes" : "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Value cannot be below 5!")
+				.tooltip(current >= 5 ? ChatColor.GOLD + "Click to submit changes"
+						: "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Value cannot be below 5!")
 				.command(current >= 5 ? "/script adjust " + script + " " + current + " submit" : "").send(p);
 		new FancyMessage("            ").then("\u25bc").color(days > 0 ? ChatColor.GOLD : ChatColor.GRAY)
-				.tooltip(current >= DAY_IN_TICKS ? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Days" + ChatColor.GOLD + " by 1"
+				.tooltip(current >= DAY_IN_TICKS
+						? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Days" + ChatColor.GOLD + " by 1"
 						: "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Error negative limit reached!")
 				.command(current >= DAY_IN_TICKS ? "/script adjust " + script + " " + (current - DAY_IN_TICKS) : "")
 				.then(" ").then("\u25bc").color(current >= HOUR_IN_TICKS ? ChatColor.GOLD : ChatColor.GRAY)
-				.tooltip(current >= HOUR_IN_TICKS ? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Hours" + ChatColor.GOLD + " by 1"
+				.tooltip(current >= HOUR_IN_TICKS
+						? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Hours" + ChatColor.GOLD + " by 1"
 						: "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Error negative limit reached!")
 				.command(current >= HOUR_IN_TICKS ? "/script adjust " + script + " " + (current - HOUR_IN_TICKS) : "")
 				.then(" ").then("\u25bc").color(current >= MINUTE_IN_TICKS ? ChatColor.GOLD : ChatColor.GRAY)
-				.tooltip(current >= MINUTE_IN_TICKS ? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Minutes" + ChatColor.GOLD + " by 1"
+				.tooltip(current >= MINUTE_IN_TICKS
+						? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Minutes" + ChatColor.GOLD + " by 1"
 						: "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Error negative limit reached!")
 				.command(current >= MINUTE_IN_TICKS ? "/script adjust " + script + " " + (current - MINUTE_IN_TICKS)
 						: "")
 				.then(" ").then("\u25bc").color(current >= SECOND_IN_TICKS ? ChatColor.GOLD : ChatColor.GRAY)
-				.tooltip(current >= SECOND_IN_TICKS ? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Seconds" + ChatColor.GOLD + " by 1"
+				.tooltip(current >= SECOND_IN_TICKS
+						? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Seconds" + ChatColor.GOLD + " by 1"
 						: "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Error negative limit reached!")
 				.command(current >= SECOND_IN_TICKS ? "/script adjust " + script + " " + (current - SECOND_IN_TICKS)
 						: "")
 				.then(" ").then("\u25bc").color(current > 0 ? ChatColor.GOLD : ChatColor.GRAY)
-				.tooltip(
-						current > 0 ? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Ticks" + ChatColor.GOLD + " by 1" : "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Error negative limit reached!")
+				.tooltip(current > 0
+						? ChatColor.GOLD + "Click to decrease " + ChatColor.GOLD + "Ticks" + ChatColor.GOLD + " by 1"
+						: "" + ChatColor.RED + "Error: " + ChatColor.DARK_RED + "Error negative limit reached!")
 				.command(current > 0 ? "/script adjust " + script + " " + (current - 1) : "").send(p);
 		p.sendMessage("");
 		p.sendMessage("");
@@ -630,26 +682,30 @@ public class ScriptCommand implements CommandExecutor, Listener, TabCompleter {
 
 	public String getSwitchTooltip(Script s) {
 		if (!s.getEventType().isDummy()) {
-			return s.enabled ? ChatColor.GOLD + "Click to " + ChatColor.DARK_RED + "disable " + ChatColor.GOLD + "this script" : ChatColor.GOLD + "Click to " + ChatColor.GREEN + "enable " + ChatColor.GOLD + "this script";
+			return s.enabled
+					? ChatColor.GOLD + "Click to " + ChatColor.DARK_RED + "disable " + ChatColor.GOLD + "this script"
+					: ChatColor.GOLD + "Click to " + ChatColor.GREEN + "enable " + ChatColor.GOLD + "this script";
 		} else
 			return ChatColor.DARK_RED + "You cannot disable dummy scripts...";
 	}
 
 	public void displaySounds(Player p, int page) {
 
-		p.sendMessage("" + ChatColor.YELLOW + "--------------- " + ChatColor.WHITE + "Sound Browser" + ChatColor.YELLOW + " ---------------------");
+		p.sendMessage("" + ChatColor.YELLOW + "--------------- " + ChatColor.WHITE + "Sound Browser" + ChatColor.YELLOW
+				+ " ---------------------");
 
 		Sound[] sounds = Sound.values();
 
 		for (int i : getIndexRangeOnPage(page, sounds.length)) {
 			new FancyMessage(" - ").color(ChatColor.YELLOW).then(sounds[i].name()).color(ChatColor.GOLD).then(" ")
 					.then("\u25ba").color(ChatColor.GREEN).style(ChatColor.BOLD)
-					.command("/script sounds " + sounds[i].name()).tooltip(ChatColor.GOLD + "Click here to play this sound!").send(p);
+					.command("/script sounds " + sounds[i].name())
+					.tooltip(ChatColor.GOLD + "Click here to play this sound!").send(p);
 		}
 
 		getPageSelector(page, "/script sounds " + (page - 1), "/script sounds " + (page + 1)).send(p);
 
-		p.sendMessage("" + ChatColor.YELLOW + "---------------------------------------------------");		
+		p.sendMessage("" + ChatColor.YELLOW + "---------------------------------------------------");
 	}
 
 }
