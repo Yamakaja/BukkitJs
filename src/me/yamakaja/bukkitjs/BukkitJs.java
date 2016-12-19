@@ -14,7 +14,7 @@ public class BukkitJs extends JavaPlugin {
 	EventManager eventManager;
 	SchedulerManager schedulerManager;
 
-	ScriptCommand scriptCommand;
+	CommandScript scriptCommand;
 
 	@Override
 	public void onEnable() {
@@ -58,7 +58,7 @@ public class BukkitJs extends JavaPlugin {
 	}
 
 	private void init() {
-		scriptCommand = new ScriptCommand(this);
+		scriptCommand = new CommandScript(this);
 		this.getCommand("script").setExecutor(scriptCommand);
 		this.getCommand("script").setTabCompleter(scriptCommand);
 	}
