@@ -1,10 +1,4 @@
-*.class
-.classpath
-.project
 target/
-bin/
-.settings/
-copy.sh
 .idea
 *.iml
 *~

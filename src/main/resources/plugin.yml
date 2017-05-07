@@ -1,0 +1,8 @@
+name: BukkitJs
+main: me.yamakaja.bukkitjs.BukkitJs
+version: 1.0.0
+author: Yamakaja
+commands:
+  script:
+    description: "BukkitJs main command. '/script' for more information"
+    permission: "bukkitjs.admin"
