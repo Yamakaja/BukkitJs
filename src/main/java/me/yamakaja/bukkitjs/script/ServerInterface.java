@@ -1,5 +1,8 @@
 package me.yamakaja.bukkitjs.script;
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import jdk.nashorn.api.scripting.ScriptUtils;
+import jdk.nashorn.internal.objects.NativeJavaImporter;
 import me.yamakaja.bukkitjs.script.command.CommandConsumer;
 import me.yamakaja.bukkitjs.script.command.CommandWrapper;
 import me.yamakaja.bukkitjs.script.event.EventListenerGenerator;
@@ -36,11 +39,10 @@ public class ServerInterface {
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void registerCommand(String name, String description, String usage, String[] aliases, CommandConsumer commandConsumer) {
-        commandMap.register(name, new CommandWrapper(name, description, usage, Arrays.asList(aliases), commandConsumer));
+    public void registerCommand(String name, String description, String usage, ScriptObjectMirror aliases, CommandConsumer commandConsumer) {
+        commandMap.register(name, new CommandWrapper(name, description, usage, Arrays.asList((String[]) ScriptUtils.convert(aliases, String[].class)), commandConsumer));
     }
 
     public Listener registerListener(String event, Consumer<Event> function) {
@@ -52,7 +54,5 @@ public class ServerInterface {
     public void unregisterListener(Listener listener) {
         HandlerList.unregisterAll(listener);
     }
-
-
 
 }

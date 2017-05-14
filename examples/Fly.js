@@ -1,7 +1,7 @@
 var Player = Java.type("org.bukkit.entity.Player");
 var ChatColor = Java.type("org.bukkit.ChatColor");
 
-server.registerCommand("fly", "Toggle survival flight", "/fly", Java.to(["f"], "java.lang.String[]"), function (sender, alias, args) {
+server.registerCommand("fly", "Toggle survival flight", "/fly", ["f"], function (sender, alias, args) {
     if (!(sender instanceof Player)) {
         sender.sendMessage(ChatColor.DARK_RED + "You can't use this command!");
         return;
