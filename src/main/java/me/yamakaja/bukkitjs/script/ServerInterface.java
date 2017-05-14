@@ -32,7 +32,6 @@ public class ServerInterface {
 
         Server server = Bukkit.getServer();
         try {
-            System.out.println(server.getClass());
             Field commandMap = server.getClass().getDeclaredField("commandMap");
             commandMap.setAccessible(true);
             this.commandMap = (CommandMap) commandMap.get(server);
