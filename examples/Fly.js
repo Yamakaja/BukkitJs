@@ -1,6 +1,6 @@
 with (bukkitImports) {
 
-    server.registerCommand("fly", "Toggle survival flight", "/fly", ["f"], function (sender, alias, args) {
+    server.command("fly", "Toggle survival flight", "/fly", ["f"], function (sender, alias, args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.DARK_RED + "You can't use this command!");
             return;
